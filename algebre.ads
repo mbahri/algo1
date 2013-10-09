@@ -25,6 +25,7 @@ package Algebre is
 
 	-- produit matrice vecteur
 	function "*" (X : Matrice ; Y : Vecteur) return Vecteur;
+    function "-" (X : Vecteur ; Y : Vecteur) return Vecteur;
 
 	-- la fonction Projection calcule les coordonnees 2D (sur l'ecran) d'un point
 	-- de la scene 3D
