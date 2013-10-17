@@ -6,7 +6,7 @@ package body Algebre is
 	-- Fonction pour le produit de matrices de taille 3, utilisée dans les fonctions Matrice_Rotations
     -- POSSIBILITE DE FAIRE UNE MULT POUR TOUTE TAILLE
     -- Il ne semblait pas ici nécessaire d'implémenter un algorithme plus performant que l'algorithme naïf, la fonction étant destinée à des matrices de taille 3.
-	function Produit_Matrice3(X : Matrice ; Y : Matrice) return Matrice is 
+	function Produit_Matrice(X : Matrice ; Y : Matrice) return Matrice is 
 		Z : Matrice(1..3, 1..3);
 	begin
 		for i in 1..3 loop
@@ -32,7 +32,7 @@ package body Algebre is
         Roty := ((cos(Angles(2)), 0.0, sin(Angles(2))),(0.0, 1.0, 0.0), (-sin(Angles(2)), 0.0, cos(Angles(2))));
         Rotz := ((cos(Angles(3)), -sin(Angles(3)), 0.0),(sin(Angles(3)), cos(Angles(3)), 0.0), (0.0, 0.0, 1.0));
 
-        Rotation := Produit_Matrice3(Rotz, Produit_Matrice3(Roty, Rotx));
+        Rotation := Produit_Matrice(Rotz, Produit_Matrice(Roty, Rotx));
 		return Rotation;
 	end;
 
