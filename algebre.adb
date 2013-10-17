@@ -49,7 +49,9 @@ package body Algebre is
 		-- a faire
         for i in 1..X'Range(1) loop
             for j in 1..X'Range(2) loop
-                Z(i )=X(i,j)*Y(j)
+                Z(i)=X(i,j)*Y(j);
+            end loop;
+        end loop;
 		return Z;
 	end;
 
