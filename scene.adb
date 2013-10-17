@@ -23,7 +23,7 @@ package body Scene is
 	function Position_Camera return Vecteur is
 		Position : Vecteur(1..3);
 	begin
-		-- a faire
+        Position := T*(0.0,0.0,-R);
 		return Position;
 	end;
 
