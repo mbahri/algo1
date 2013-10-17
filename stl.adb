@@ -4,11 +4,11 @@ use Ada.Text_IO;
 
 package body STL is
 
-	function Nombre_Facettes(Nom_Fichier : String) return Natural is
-		F : File_Type;
-		Nb : Natural := 0;
-   begin
-		Open(File => F, Mode => In_File, Name => Nom_Fichier);
+    function Nombre_Facettes(Nom_Fichier : String) return Natural is
+        F : File_Type;
+        Nb : Natural := 0;
+    begin
+        Open(File => F, Mode => In_File, Name => Nom_Fichier);
         -- Fonctionnement du comptage : on compte les endfacet
         -- On lit le fichier ligne par ligne, pour chaque ligne on supprime tous les caractères qui ne sont pas
         -- des lettres minuscules.
@@ -33,24 +33,24 @@ package body STL is
                 end if;
             end;
         end loop;
-		Close(F);
-		return Nb;
-   end;
+        Close(F);
+        return Nb;
+    end;
 
-	function Chargement_ASCII(Nom_Fichier : String) return Maillage is
-		Nb_Facettes : Natural;
-		M : Maillage;
-		F : File_Type;
-	begin
-		Nb_Facettes := Nombre_Facettes(Nom_Fichier);
-		-- une fois qu'on a le nombre de facettes on connait la taille du maillage
-		M := new Tableau_Facette(1..Nb_Facettes);
-		-- on ouvre de nouveau le fichier pour parcourir les facettes
-		-- et remplir le maillage
-		Open(File => F, Mode => In_File, Name => Nom_Fichier);
-		-- a faire...
-		Close (F);
-		return M;
-	end;
+    function Chargement_ASCII(Nom_Fichier : String) return Maillage is
+        Nb_Facettes : Natural;
+        M : Maillage;
+        F : File_Type;
+    begin
+        Nb_Facettes := Nombre_Facettes(Nom_Fichier);
+        -- une fois qu'on a le nombre de facettes on connait la taille du maillage
+        M := new Tableau_Facette(1..Nb_Facettes);
+        -- on ouvre de nouveau le fichier pour parcourir les facettes
+        -- et remplir le maillage
+        Open(File => F, Mode => In_File, Name => Nom_Fichier);
+        -- a faire...
+        Close (F);
+        return M;
+    end;
 
 end;

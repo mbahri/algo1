@@ -7,10 +7,10 @@ with Scene;
 
 package body Frame is
 
-	procedure Calcul_Image is
-	begin
-		-- a faire : calcul des projections, affichage des triangles
-		null;
-	end;
+    procedure Calcul_Image is
+    begin
+        -- a faire : calcul des projections, affichage des triangles
+        null;
+    end;
 
 end Frame;
