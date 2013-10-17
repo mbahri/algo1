@@ -5,6 +5,8 @@ use Ada.Text_IO;
 
 package body Scene is
 
+    MAUVAIS_INDEX : exception; 
+
 	R : Float := 50.0; -- coordonnee Z initiale de la camera
 	Rho : Float := 0.0; -- rotation autour de X
 	Theta : Float := 0.0; -- rotation autour de Y
@@ -22,8 +24,10 @@ package body Scene is
 
 	function Position_Camera return Vecteur is
 		Position : Vecteur(1..3);
+		Position_initiale : Vecteur(1..3);
 	begin
-        Position := T*(0.0,0.0,-R);
+        Position_initiale := (0.0,0.0,-R);
+        Position := T*Position_initiale;
 		return Position;
 	end;
 
@@ -48,8 +52,14 @@ package body Scene is
 
 	procedure Modification_Coordonnee_Camera(Index : Positive ; Increment : Float) is
 	begin
-		-- a faire
-		null;
+        case Index is
+            when 1 => R := R + Increment;
+            when 2 => Rho := Rho + Increment;
+            when 3 => Theta := Theta + Increment;
+            when 4 => Phi := Phi + Increment;
+            when others => raise MAUVAIS_INDEX; -- Si on demande la modification d'une coordonnée d'indice non dans (1..4), on lève une exception.
+        end case;
+        Modification_Matrice_Rotation;
 	end;
 
 begin

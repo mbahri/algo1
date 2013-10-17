@@ -9,7 +9,25 @@ package body STL is
 		Nb : Natural := 0;
    begin
 		Open(File => F, Mode => In_File, Name => Nom_Fichier);
-		-- a faire : compter les facettes (p.ex. chercher les "endloop")...
+        -- Commencé
+        while not End_of_File(F) loop
+            declare
+                Line : String := Get_Line(File);
+                Line_epuree : String := Line;
+                cpt : Natural := 1;
+            begin
+                for i in Line'Range loop
+                    if Line(i) in 'a'..'z' then
+                        Line_epuree(cpt) := Line(i);
+                        cpt := cpt + 1;
+                    end if;
+                end loop;
+
+                if Line_epuree(Line_epuree'First .. (cpt-1)) = "endfacet" then
+                    Nb := Nb + 1;
+                end if;
+            end;
+        end loop;
 		Close(F);
 		return Nb;
    end;
