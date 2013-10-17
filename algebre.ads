@@ -9,19 +9,28 @@ package Algebre is
 	-- pour plus de details, voir la documentation fournie ou
 	-- see http://en.wikipedia.org/wiki/3D_projection#Perspective_projection
 
-	-- la fonction Matrice_Rotations renvoie la matrice realisant
+	function Produit_Matrice(X : Matrice ; Y : Matrice) return Matrice; 
+	
+    -- Matrice_Rotation
+    -- Recquiert : une lettre x, y ou z pour indiqué l'axe autour duquel se fait la rotation
+    --              et un Float pour la valeur de l'angle de la rotation
+    -- Garanti : la matrice de la rotation de 'Angle' degrés autour de l'axe 'Axe'
+    function Matrice_Rotation(Axe : Character ; Angle : Float) return Matrice;
+
+    -- la fonction Matrice_Rotations renvoie la matrice realisant
 	-- les 3 rotations suivantes (dans l'ordre) :
 	-- une rotation d'Angles(1) autour de l'axe X
 	-- suivie d'une rotation d'Angles(2) autour de l'axe Y
 	-- suivie d'une rotation d'Angles(3) autour de l'axe Z
-	function Produit_Matrice3(X : Matrice ; Y : Matrice) return Matrice; 
-	function Matrice_Rotations(Angles : Vecteur) return Matrice;	
+    -- Les angles doivent être en dégrés
+    function Matrice_Rotations(Angles : Vecteur) return Matrice;	
 
 	-- la fonction Matrice_Rotations_Inverses renvoie la matrice realisant
 	-- les 3 rotations suivantes (dans l'ordre) :
 	-- une rotation d'Angles(3) autour de l'axe Z
 	-- suivie d'une rotation d'Angles(2) autour de l'axe Y
 	-- suivie d'une rotation d'Angles(1) autour de l'axe X
+    -- Les angles doivent être en degrés
 	function Matrice_Rotations_Inverses(Angles : Vecteur) return Matrice;
 
 	-- produit matrice vecteur
