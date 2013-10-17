@@ -53,6 +53,15 @@ package body Algebre is
 		return Z;
 	end;
 
+    function "-" (X : Vecteur; Y : Vecteur) return Vecteur is
+        Z : Vecteur(X'Range);
+    begin
+        for i in X'Range loop
+            Z(i) := X(i) - Y(i);
+        end loop;
+
+        return Z;
+    end;
 
     function Projection(A, C, E : Vecteur ; T : Matrice) return Vecteur is
 		Resultat : Vecteur(1..2);
