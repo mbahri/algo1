@@ -14,6 +14,7 @@ package Algebre is
 	-- une rotation d'Angles(1) autour de l'axe X
 	-- suivie d'une rotation d'Angles(2) autour de l'axe Y
 	-- suivie d'une rotation d'Angles(3) autour de l'axe Z
+	function Produit_Matrice3(X : Matrice ; Y : Matrice) return Matrice; 
 	function Matrice_Rotations(Angles : Vecteur) return Matrice;	
 
 	-- la fonction Matrice_Rotations_Inverses renvoie la matrice realisant
@@ -25,7 +26,6 @@ package Algebre is
 
 	-- produit matrice vecteur
 	function "*" (X : Matrice ; Y : Vecteur) return Vecteur;
-    function "-" (X : Vecteur ; Y : Vecteur) return Vecteur;
 
 	-- la fonction Projection calcule les coordonnees 2D (sur l'ecran) d'un point
 	-- de la scene 3D
