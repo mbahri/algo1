@@ -89,8 +89,14 @@ package body Algebre is
 
     function Projection(A, C, E : Vecteur ; T : Matrice) return Vecteur is
 		Resultat : Vecteur(1..2);
+        D : Vecteur(1..3);
 	begin
-		-- a faire
+-- QUE FAIRE SI D(3) < 0 pour ne pas afficher les points ????
+        D := A - C;
+        if D(3) >= 0.0 then
+            Resultat(1) := (E(3)/D(3))*D(1)-E(1);
+            Resultat(2) := (E(3)/D(3))*D(2)-D(2);
+        end if;
 		return Resultat;
 	end;
 
