@@ -9,7 +9,12 @@ package body STL is
 		Nb : Natural := 0;
    begin
 		Open(File => F, Mode => In_File, Name => Nom_Fichier);
-        -- Commencé
+        -- Fonctionnement du comptage : on compte les endfacet
+        -- On lit le fichier ligne par ligne, pour chaque ligne on supprime tous les caractères qui ne sont pas
+        -- des lettres minuscules.
+        -- Pour ce faire, on crée une copie de la ligne et on écrase les caractères en partant du début.
+        -- On compare ensuite la partie de la chaine correspondant à la ligne épurée : ce sont les "cpt" premiers caractères.
+
         while not End_of_File(F) loop
             declare
                 Line : String := Get_Line(File);
