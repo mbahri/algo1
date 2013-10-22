@@ -15,9 +15,10 @@ package body Frame is
         Nb_Facette:=Nombre_De_Facettes;
         for i in 1..Nb_Facette loop
             Projection_Facette(i, P1, P2, P3);
-            Tracer_Segment(P1(1), P1(2), P2(1), P2(2));
-            Tracer_Segment(P1(1), P1(2), P2(1), P2(2));
-            Tracer_Segment(P2(1), P2(2), P3(1), P3(2));
+            
+            Tracer_Segment(Integer(P1(1)), Integer(P1(2)), Integer(P2(1)), Integer(P2(2)));
+            Tracer_Segment(Integer(P1(1)), Integer(P1(2)), Integer(P2(1)), Integer(P2(2)));
+            Tracer_Segment(Integer(P2(1)), Integer(P2(2)), Integer(P3(1)), Integer(P3(2)));
         end loop;
         null;
     end;
