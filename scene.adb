@@ -34,10 +34,9 @@ package body Scene is
     procedure Projection_Facette(Index_Facette : Positive ; P1, P2, P3 : out Vecteur) is
     begin
         -- a faire enfin à vérifier en tout cas
-        Ajout_Maillage;
-        P1 := Projection(M1(Index_Facette)(1));
-        P2 := Projection(M1(Index_Facette)(2));
-        P3 := Projection(M1(Index_Facette)(3));
+        P1 := Projection(M(Index_Facette)(1));
+        P2 := Projection(M(Index_Facette)(2));
+        P3 := Projection(M(Index_Facette)(3));
     end;
 
     procedure Ajout_Maillage(M1 : Maillage) is
@@ -50,8 +49,7 @@ package body Scene is
         N : Natural;
     begin
         -- a faire, enfin à vérifier
-        Ajout_Maillage;
-        N:=M1'Last;
+        N:=M'Last;
         return N;
     end;
 
