@@ -3,7 +3,7 @@ with Ligne; use Ligne;
 with STL ; use STL;
 with Algebre ; use Algebre;
 
-with Scene;
+with Scene; use Scene;
 
 package body Frame is
 
