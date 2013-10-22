@@ -56,7 +56,7 @@ package body STL is
 
         Buffer : U.Unbounded_String := U.Null_Unbounded_String;
 
-        Indice : Positive := 1;
+        Indice : Natural := 0;
 
         procedure AvCar is
         begin
@@ -92,6 +92,9 @@ package body STL is
         NextV;
         -- On arrive sur un v, il faut voir si on a "vertex"
         if Lire6 = "vertex" then
+
+            Indice := (Indice + 1) mod 3; 
+
             -- On se trouve sur le 'x' de vertex, on va avancer d'un caractère puis lire 3 float
             for I in 1..3 loop
                 Buffer := U.Null_Unbounded_String;
@@ -106,11 +109,11 @@ package body STL is
                     -- Il faut une variable auxilliaire cpt, et à chaque fois que cpt est un multiple de 3, il faut incrémenter le compteur avec un modulo.
                     case Indice is
                         when 1 => Facette.P1(I) := Float'Value(U.To_String(Buffer));
-                                  Indice := 2;
+                        --          Indice := 2;
                         when 2 => Facette.P2(I) := Float'Value(U.To_String(Buffer));
-                                  Indice := 3;
-                        when 3 => Facette.P3(I) := Float'Value(U.To_String(Buffer));
-                                  Indice := 1;
+                        --          Indice := 3;
+                        when 0 => Facette.P3(I) := Float'Value(U.To_String(Buffer));
+                        --          Indice := 1;
                         when others => null;
                     end case;
             end loop;

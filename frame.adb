@@ -16,9 +16,9 @@ package body Frame is
         for i in 1..Nb_Facette loop
             Projection_Facette(i, P1, P2, P3);
             
-            Tracer_Segment(Integer(P1(1)), Integer(P1(2)), Integer(P2(1)), Integer(P2(2)));
-            Tracer_Segment(Integer(P1(1)), Integer(P1(2)), Integer(P2(1)), Integer(P2(2)));
-            Tracer_Segment(Integer(P2(1)), Integer(P2(2)), Integer(P3(1)), Integer(P3(2)));
+            Tracer_Segment(Natural(P1(1)), Natural(P1(2)), Natural(P2(1)), Natural(P2(2)));
+            Tracer_Segment(Natural(P1(1)), Natural(P1(2)), Natural(P2(1)), Natural(P2(2)));
+            Tracer_Segment(Natural(P2(1)), Natural(P2(2)), Natural(P3(1)), Natural(P3(2)));
         end loop;
         null;
     end;

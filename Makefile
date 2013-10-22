@@ -1,5 +1,5 @@
 all:
-	export PATH=/opt/gnat/bin:$PATH
+	export PATH=/opt/gnat/bin:${PATH}
 	gprbuild visualiseur
 
 home:
