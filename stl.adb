@@ -21,6 +21,7 @@ package body STL is
         -- On recopie pour cela tous les caractères différents de ' ' dans une Unbounded_String.
         -- ANCIENNE VERSION : Pour ce faire, on crée une copie de la ligne et on écrase les caractères en partant du début.
         -- On compare ensuite la partie de la chaine correspondant à la ligne épurée : ce sont les "cpt" premiers caractères.
+        -- --
 
         while not End_of_File(F) loop
             declare
