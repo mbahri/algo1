@@ -13,7 +13,7 @@ procedure parser is
     function Parse_ligne(Ligne : in String) return Vecteur is
         Facette : Vecteur(1..3);
         Pos : Positive := 1;
-        CarCour : Character := Ligne(1);
+        CarCour : Character := Ligne(Ligne'First);
 
         Buffer : U.Unbounded_String := U.Null_Unbounded_String;
 
@@ -29,11 +29,12 @@ procedure parser is
         begin
             Buffer := U.Null_Unbounded_String;
             for I in 1..6 loop
-                Put(CarCour);
+                --Put("Lettre lue : "); Put(CarCour); New_Line; --DEBUG
                 U.Append(Source => Buffer, New_Item => CarCour);
                 AvCar;
+                --Put("Est sur le caractère : "); Put(CarCour); New_Line; --DEBUG
             end loop;
-            Put(U.To_String(Buffer));
+            --Put("Buffer lu : "); Put(U.To_String(Buffer)); New_Line; --DEBUG
 
             return U.To_String(Buffer);
         end;
@@ -41,8 +42,8 @@ procedure parser is
         -- On saute les espaces
         procedure NextV is
         begin
-            while CarCour /= 'v' loop
-                AvCar;
+            while CarCour = ' ' loop
+                AvCarLigne'First
             end loop;
         end;
 
@@ -51,17 +52,18 @@ procedure parser is
         -- On arrive sur un v, il faut voir si on a "vertex"
         if Lire6 = "vertex" then
             -- On se trouve sur le 'x' de vertex, on va avancer d'un caractère puis lire 3 float
-            AvCar;
+            -- AvCar;
             for I in 1..3 loop
                 Buffer := U.Null_Unbounded_String;
                 AvCar;
-                while (CarCour /= ' ') and then (Pos < Ligne'Length) loop
-                    Put(CarCour);
+                while (Pos <= Ligne'Length) and then (CarCour /= ' ') loop
+                   -- Put("Caractère lu dans la boucle : "); Put(CarCour); New_Line; --DEBUG
                     U.Append(Source => Buffer, New_Item => CarCour);
                     AvCar;
                 end loop;
+                    --Put_Line("Fin float"); --DEBUG
                     Facette(I) := Float'Value(U.To_String(Buffer));
-                end loop;
+            end loop;
         else
             NextV;
         end if;
@@ -82,10 +84,11 @@ procedure parser is
                 for I in Facette'Range loop
                     Put(Facette(I));
                 end loop;
+                New_Line;
             end;
         end loop;
         Close (F);
     end;
 begin
     Chargement_ASCII("cube.stl");
-end;
+endLigne'FirLigne'First
