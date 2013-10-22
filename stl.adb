@@ -28,7 +28,7 @@ package body STL is
 
         while not End_of_File(F) loop
             declare
-                Line : String := Get_Line(File);
+                Line : String := Get_Line(F);
                 cpt : Natural := 1;
             begin
                 Line_epuree := U.Null_Unbounded_String;
@@ -50,11 +50,13 @@ package body STL is
     end;
 
     function Parse_ligne(Ligne : in String) return Vecteur is
-        Facette : Vecteur(1..3);
+        Facette : Facette;
         Pos : Positive := 1;
         CarCour : Character := Ligne(Ligne'First);
 
         Buffer : U.Unbounded_String := U.Null_Unbounded_String;
+
+        Indice : Positive := 1;
 
         procedure AvCar is
         begin
@@ -82,7 +84,7 @@ package body STL is
         procedure NextV is
         begin
             while CarCour = ' ' loop
-                AvCarLigne'First
+                AvCar;
             end loop;
         end;
 
@@ -91,7 +93,6 @@ package body STL is
         -- On arrive sur un v, il faut voir si on a "vertex"
         if Lire6 = "vertex" then
             -- On se trouve sur le 'x' de vertex, on va avancer d'un caractère puis lire 3 float
-            -- AvCar;
             for I in 1..3 loop
                 Buffer := U.Null_Unbounded_String;
                 AvCar;
@@ -101,7 +102,17 @@ package body STL is
                     AvCar;
                 end loop;
                     --Put_Line("Fin float"); --DEBUG
-                    Facette(I) := Float'Value(U.To_String(Buffer));
+                    -- Ici il y a un problème : les 3 sont remplis alternatives
+                    -- Il faut une variable auxilliaire cpt, et à chaque fois que cpt est un multiple de 3, il faut incrémenter le compteur avec un modulo.
+                    case Indice is
+                        when 1 => Facette.P1(I) := Float'Value(U.To_String(Buffer));
+                                  Indice := 2;
+                        when 2 => Facette.P2(I) := Float'Value(U.To_String(Buffer));
+                                  Indice := 3;
+                        when 3 => Facette.P3(I) := Float'Value(U.To_String(Buffer));
+                                  Indice := 1;
+                        when others => null;
+                    end case;
             end loop;
         else
             NextV;
@@ -114,7 +125,7 @@ package body STL is
         Nb_Facettes : Natural;
         M : Maillage;
         F : File_Type;
-        Facette : Vecteur(1..3);
+        Facette : Facette;
         Pos : Positive := 1;
     begin
         Nb_Facettes := Nombre_Facettes(Nom_Fichier);
