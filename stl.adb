@@ -49,7 +49,7 @@ package body STL is
         return Nb;
     end;
 
-    function Parse_ligne(Ligne : in String) return Vecteur is
+    function Parse_ligne(Ligne : in String) return Facette is
         Face : Facette;
         Pos : Positive := 1;
         CarCour : Character := Ligne(Ligne'First);
