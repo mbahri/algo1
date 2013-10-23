@@ -137,7 +137,8 @@ package body STL is
         -- on ouvre de nouveau le fichier pour parcourir les facettes
         -- et remplir le maillage
         Open(File => F, Mode => In_File, Name => Nom_Fichier);
-        while not End_of_File(F) loop
+        -- while not End_of_File(F) loop
+        while Pos <= Nb_Facettes loop 
             declare
                 Ligne : String := Get_Line(F);
             begin

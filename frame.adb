@@ -11,6 +11,9 @@ package body Frame is
         P1, P2, P3 : Vecteur(1..2);
         Nb_Facette:Natural:=0;
     begin
+
+        -- on nettoit l'écran de l'affichage précédent en réinitialisant tous les pixels au noir
+        
         -- a faire : calcul des projections, affichage des triangles
         Nb_Facette:=Nombre_De_Facettes;
         for i in 1..Nb_Facette loop
