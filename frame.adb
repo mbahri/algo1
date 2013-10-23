@@ -13,7 +13,11 @@ package body Frame is
     begin
 
         -- on nettoit l'écran de l'affichage précédent en réinitialisant tous les pixels au noir
-        
+        for i in 1..600 loop
+            for j in 1..800 loop
+                Fixe_Pixel(j,i,0);
+            end loop;
+        end loop;
         -- a faire : calcul des projections, affichage des triangles
         Nb_Facette:=Nombre_De_Facettes;
         for i in 1..Nb_Facette loop
