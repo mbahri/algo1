@@ -1,0 +1,24 @@
+V "GNAT Lib v4.8"
+M P W=b
+P ZX
+
+RN
+RV NO_DEFAULT_INITIALIZATION
+RV SPARK
+
+U test%b		test_stl.adb		9a3c45ee NE OO SU IL
+W stl%s			stl.adb			stl.ali
+
+D algebre.ads		20131023204154 8bb08644
+D stl.ads		20131023204145 085c09a8
+D system.ads		20121213103024 90249111
+D test_stl.adb		20131023212010 92604c46
+X 2 stl.ads
+4K9*STL 19e4 4|1w6 1r15
+12A10*Tableau_Facette(8R10)<integer>
+14P10*Maillage(12A10) 4|4r9
+17V14*Chargement_ASCII{14P10} 4|9s10
+X 4 test_stl.adb
+3U11*test 3b11 10t4
+4p5 M{2|14P10} 9m5
+

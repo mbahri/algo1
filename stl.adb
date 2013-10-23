@@ -54,88 +54,14 @@ package body STL is
         return Nb;
     end;
 
-    function Parse_ligne(Ligne : in String) return Facette is
-        Face : Facette;
-        Pos : Positive := 1;
-        CarCour : Character := Ligne(Ligne'First);
-
-        Buffer : U.Unbounded_String := U.Null_Unbounded_String;
-
-        procedure AvCar is
-        begin
-            Pos := Pos + 1;
-            if Pos <= Ligne'Length then
-                CarCour := Ligne(Pos);
-            end if;
-        end;
-
-        function Lire6 return String is
-        begin
-            Buffer := U.Null_Unbounded_String;
-            for I in 1..6 loop
-                --Put("Lettre lue : "); Put(CarCour); New_Line; --DEBUG
-                U.Append(Source => Buffer, New_Item => CarCour);
-                AvCar;
-                --Put("Est sur le caractère : "); Put(CarCour); New_Line; --DEBUG
-            end loop;
-            --Put("Buffer lu : "); Put(U.To_String(Buffer)); New_Line; --DEBUG
-
-            return U.To_String(Buffer);
-        end;
-
-        -- On saute les espaces
-        procedure NextV is
-        begin
-            while CarCour = ' ' loop
-                AvCar;
-            end loop;
-        end;
-
-    begin
-        NextV;
-        -- On arrive sur un v, il faut voir si on a "vertex"
-        if Lire6 = "vertex" then
-
-            Indice := (Indice + 1) mod 3; 
-            Put_Line(Integer'Image(Indice));
-
-            -- On se trouve sur le 'x' de vertex, on va avancer d'un caractère puis lire 3 float
-            for I in 1..3 loop
-                Buffer := U.Null_Unbounded_String;
-                AvCar;
-                while (Pos <= Ligne'Length) and then (CarCour /= ' ') loop
-                   -- Put("Caractère lu dans la boucle : "); Put(CarCour); New_Line; --DEBUG
-                    U.Append(Source => Buffer, New_Item => CarCour);
-                    AvCar;
-                end loop;
-                    --Put_Line("Fin float"); --DEBUG
-                    -- Ici il y a un problème : les 3 sont remplis alternatives
-                    -- Il faut une variable auxilliaire cpt, et à chaque fois que cpt est un multiple de 3, il faut incrémenter le compteur avec un modulo.
-                    case Indice is
-                        when 1 => Face.P1(I) := Float'Value(U.To_String(Buffer));
-                        --          Indice := 2;
-                        when 2 => Face.P2(I) := Float'Value(U.To_String(Buffer));
-                        --          Indice := 3;
-                        when 0 => Face.P3(I) := Float'Value(U.To_String(Buffer));
-                        --          Indice := 1;
-                        when others => null;
-                    end case;
-            end loop;
-            if Indice = 0 then
-              IFace := IFace + 1;
-            end if;
-
-        else
-            NextV;
-        end if;
-        return Face;
-    end;
-
     function Chargement_ASCII(Nom_Fichier : String) return Maillage is
         Nb_Facettes : Natural;
         M : Maillage;
         F : File_Type;
-        Face : Facette;
+        T : Float;
+        C : Character;
+        Point : Natural := 0;
+        iFace : Positive := 1;
     begin
         Nb_Facettes := Nombre_Facettes(Nom_Fichier);
         -- une fois qu'on a le nombre de facettes on connait la taille du maillage
@@ -143,17 +69,47 @@ package body STL is
         -- on ouvre de nouveau le fichier pour parcourir les facettes
         -- et remplir le maillage
         Open(File => F, Mode => In_File, Name => Nom_Fichier);
+
+        -- On saute la première ligne qui pourrait contenir un v
+        Skip_Line(F); 
+        Get(F, C);
+
+        -- Méthode : on cherche les v, une fois atteint on se place sur le prochain espace
+        -- On lit ensuite les 3 prochains flottants
+        --
+        -- On affecte ensuite les 3 flottants au bon vecteur de la facette à l'aide de "Point" qui
+        -- prend circulairement des valeurs entre 0 et 2.
+        --
+        -- iFace est l'indice de la facette en cours de traitement dans le maillage. On l'incrémente
+        -- chaque fois qu'on finit de remplir le 3eme vecteur d'une facette.
+        --
+        -- À faire : vérifier que le v lu correspond bien à "vertex"
         while not End_of_File(F) loop
-            declare
-                Ligne : String := Get_Line(F);
-            begin
-                Face := Parse_Ligne(Ligne);
-                if IFace > 0 then
-                    M(IFace) := Face;
+            Get(F, C);
+            if C = 'v' then
+                -- v trouvé : on va traiter le point suivant de la facette
+                Point := (Point + 1) mod 3; 
+                while not (C = ' ') loop
+                    Get(F,C);
+                end loop;
+                for I in 1..3 loop
+                    Get(F, T); -- On lit 3 flottants qu'on affecte au bon vecteur grace à Point
+                    case Point is
+                        when 1 => M(iFace).P1(I) := T;
+                        when 2 => M(iFace).P2(I) := T;
+                        when 0 => M(iFace).P3(I) := T; 
+                        when others => null;
+                    end case;
+                end loop;
+                if Point = 0 then
+                    -- On a fini de remplir un vecteur, s'il s'agissait du 3eme d'une facette, on passe à la facette suivante
+                    iFace := iFace + 1;
                 end if;
-            end;
+            end if;
         end loop;
+
         Close (F);
+        -- Différents tests d'affichage
         for I in 1..Nb_Facettes loop
             Put("Facette"); New_Line;
             for J in 1..3 loop
