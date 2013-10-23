@@ -50,7 +50,7 @@ package body STL is
     end;
 
     function Parse_ligne(Ligne : in String) return Vecteur is
-        Facette : Facette;
+        Face : Facette;
         Pos : Positive := 1;
         CarCour : Character := Ligne(Ligne'First);
 
@@ -108,11 +108,11 @@ package body STL is
                     -- Ici il y a un problème : les 3 sont remplis alternatives
                     -- Il faut une variable auxilliaire cpt, et à chaque fois que cpt est un multiple de 3, il faut incrémenter le compteur avec un modulo.
                     case Indice is
-                        when 1 => Facette.P1(I) := Float'Value(U.To_String(Buffer));
+                        when 1 => Face.P1(I) := Float'Value(U.To_String(Buffer));
                         --          Indice := 2;
-                        when 2 => Facette.P2(I) := Float'Value(U.To_String(Buffer));
+                        when 2 => Face.P2(I) := Float'Value(U.To_String(Buffer));
                         --          Indice := 3;
-                        when 0 => Facette.P3(I) := Float'Value(U.To_String(Buffer));
+                        when 0 => Face.P3(I) := Float'Value(U.To_String(Buffer));
                         --          Indice := 1;
                         when others => null;
                     end case;
@@ -121,14 +121,14 @@ package body STL is
             NextV;
         end if;
 
-        return Facette;
+        return Face;
     end;
 
     function Chargement_ASCII(Nom_Fichier : String) return Maillage is
         Nb_Facettes : Natural;
         M : Maillage;
         F : File_Type;
-        Facette : Facette;
+        Face : Facette;
         Pos : Positive := 1;
     begin
         Nb_Facettes := Nombre_Facettes(Nom_Fichier);
@@ -141,8 +141,8 @@ package body STL is
             declare
                 Ligne : String := Get_Line(F);
             begin
-                Facette := Parse_Ligne(Ligne);
-                M(Pos) := Facette;
+                Face := Parse_Ligne(Ligne);
+                M(Pos) := Face;
                 Pos := Pos + 1;
             end;
         end loop;
