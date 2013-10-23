@@ -4,10 +4,15 @@ use Algebre;
 with Ada.Text_IO;
 use Ada.Text_IO;
 
+with Ada.Float_Text_IO; use Ada.Float_Text_IO;
+
 -- On utilise des chaines de longueur variable pour le traitement des lignes
 with Ada.Strings.Unbounded;
 
 package body STL is
+
+    IFace : Natural := 0;
+    Indice : Natural := 0;
 
     -- On pourra utiliser le package Ada.Strings.Unbounded sous le nom U
     package U renames Ada.Strings.Unbounded;
@@ -56,8 +61,6 @@ package body STL is
 
         Buffer : U.Unbounded_String := U.Null_Unbounded_String;
 
-        Indice : Natural := 0;
-
         procedure AvCar is
         begin
             Pos := Pos + 1;
@@ -94,6 +97,7 @@ package body STL is
         if Lire6 = "vertex" then
 
             Indice := (Indice + 1) mod 3; 
+            Put_Line(Integer'Image(Indice));
 
             -- On se trouve sur le 'x' de vertex, on va avancer d'un caractère puis lire 3 float
             for I in 1..3 loop
@@ -117,10 +121,13 @@ package body STL is
                         when others => null;
                     end case;
             end loop;
+            if Indice = 0 then
+              IFace := IFace + 1;
+            end if;
+
         else
             NextV;
         end if;
-
         return Face;
     end;
 
@@ -129,7 +136,6 @@ package body STL is
         M : Maillage;
         F : File_Type;
         Face : Facette;
-        Pos : Positive := 1;
     begin
         Nb_Facettes := Nombre_Facettes(Nom_Fichier);
         -- une fois qu'on a le nombre de facettes on connait la taille du maillage
@@ -137,17 +143,32 @@ package body STL is
         -- on ouvre de nouveau le fichier pour parcourir les facettes
         -- et remplir le maillage
         Open(File => F, Mode => In_File, Name => Nom_Fichier);
-        -- while not End_of_File(F) loop
-        while Pos <= Nb_Facettes loop 
+        while not End_of_File(F) loop
             declare
                 Ligne : String := Get_Line(F);
             begin
                 Face := Parse_Ligne(Ligne);
-                M(Pos) := Face;
-                Pos := Pos + 1;
+                if IFace > 0 then
+                    M(IFace) := Face;
+                end if;
             end;
         end loop;
         Close (F);
+        for I in 1..Nb_Facettes loop
+            Put("Facette"); New_Line;
+            for J in 1..3 loop
+                Put(M(I).P1(J));
+            end loop;
+            New_Line;
+            for J in 1..3 loop
+                Put(M(I).P2(J));
+            end loop;
+            New_Line;
+            for J in 1..3 loop
+                Put(M(I).P3(J));
+            end loop;
+            New_Line; Put("Fin_Facette"); New_Line;
+        end loop;
         return M;
     end;
 

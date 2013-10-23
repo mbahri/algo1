@@ -26,11 +26,11 @@ package body Algebre is
         Rotation : Matrice (1..3,1..3);
     begin
         if Axe = 'x' then
-            Rotation := ((1.0, 0.0, 0.0),(0.0, Cos(Angle, 360.0), -Sin(Angle, 360.0)), (0.0, Sin(Angle, 360.0), Cos(Angle, 360.0)));
+            Rotation := ((1.0, 0.0, 0.0),(0.0, Cos(Angle), -Sin(Angle)), (0.0, Sin(Angle), Cos(Angle)));
         elsif Axe = 'y' then
-            Rotation := ((Cos(Angle, 360.0), 0.0, Sin(Angle, 360.0)),(0.0, 1.0, 0.0), (-Sin(Angle, 360.0), 0.0, Cos(Angle, 360.0)));
+            Rotation := ((Cos(Angle), 0.0, Sin(Angle)),(0.0, 1.0, 0.0), (-Sin(Angle), 0.0, Cos(Angle)));
         elsif Axe = 'z' then
-            Rotation := ((Cos(Angle, 360.0), -Sin(Angle, 360.0), 0.0),(Sin(Angle, 360.0), Cos(Angle, 360.0), 0.0), (0.0, 0.0, 1.0));
+            Rotation := ((Cos(Angle), -Sin(Angle), 0.0),(Sin(Angle), Cos(Angle), 0.0), (0.0, 0.0, 1.0));
         end if;
         return(Rotation);
     end;

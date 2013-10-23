@@ -14,12 +14,14 @@ package body Scene is
 
     E : Vecteur(1..3) := (-400.0, -300.0, 400.0); -- position du spectateur
     T : Matrice(1..3, 1..3); -- matrice de rotation
+    U : Matrice(1..3, 1..3); -- matrice de rotation inverse
 
     M : Maillage;
 
     procedure Modification_Matrice_Rotation is
     begin
         T := Matrice_Rotations ((1 => -Rho, 2 => -Theta, 3 => -Phi));
+        U := Matrice_Rotations_Inverses ((1 => -Rho, 2 => -Theta, 3 => -Phi));
     end Modification_Matrice_Rotation;
 
     function Position_Camera return Vecteur is
@@ -33,10 +35,11 @@ package body Scene is
 
     procedure Projection_Facette(Index_Facette : Positive ; P1, P2, P3 : out Vecteur) is
     begin
+        Modification_Matrice_Rotation;
         -- a faire enfin à vérifier en tout cas
-        P1 := Projection(M(Index_Facette).P1, Position_Camera, E, T);
-        P2 := Projection(M(Index_Facette).P2, Position_Camera, E, T);
-        P3 := Projection(M(Index_Facette).P3, Position_Camera, E, T);
+        P1 := Projection(M(Index_Facette).P1, Position_Camera, E, U);
+        P2 := Projection(M(Index_Facette).P2, Position_Camera, E, U);
+        P3 := Projection(M(Index_Facette).P3, Position_Camera, E, U);
     end;
 
     procedure Ajout_Maillage(M1 : Maillage) is
