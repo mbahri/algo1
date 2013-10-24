@@ -7,7 +7,7 @@ package body Scene is
 
     MAUVAIS_INDEX : exception; 
 
-    R : Float := 50.0; -- coordonnee Z initiale de la camera
+    R : Float := 500.0; -- coordonnee Z initiale de la camera
     Rho : Float := 0.0; -- rotation autour de X
     Theta : Float := 0.0; -- rotation autour de Y
     Phi : Float := 0.0; -- rotation autour de Z
@@ -23,9 +23,9 @@ package body Scene is
         T := Matrice_Rotations ((1 => -Rho, 2 => -Theta, 3 => -Phi));
         U := Matrice_Rotations_Inverses ((1 => Rho, 2 => Theta, 3 => Phi));
     
-    exception
-        when Tailles_non_compatibles =>
-            Put_Line("Ces matrices ne peuvent pas être multipliées entre elles")
+   -- exception
+   --     when Tailles_non_compatibles =>
+   --         Put_Line("Ces matrices ne peuvent pas être multipliées entre elles");
     end Modification_Matrice_Rotation;
 
     function Position_Camera return Vecteur is
