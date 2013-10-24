@@ -9,6 +9,7 @@ package Algebre is
     -- pour plus de details, voir la documentation fournie ou
     -- see http://en.wikipedia.org/wiki/3D_projection#Perspective_projection
 
+    -- Raise l'exception Tailles_non_compatibles si on essaie de multiplier des matrices qui ne peuvent pas l'être
     function Produit_Matrice(X : Matrice ; Y : Matrice) return Matrice; 
 
     -- Matrice_Rotation

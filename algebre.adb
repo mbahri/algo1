@@ -1,23 +1,28 @@
 with Ada.Numerics.Elementary_Functions;
 use Ada.Numerics.Elementary_Functions;
-
+with Ada.Text_IO;
+use Ada.Text_IO;
 package body Algebre is
 
-    -- Fonction pour le produit de matrices de taille 3, utilisée dans les fonctions Matrice_Rotations
-    -- POSSIBILITE DE FAIRE UNE MULT POUR TOUTE TAILLE
-    -- Il ne semblait pas ici nécessaire d'implémenter un algorithme plus performant que l'algorithme naïf, la fonction étant destinée à des matrices de taille 3.
+    -- Fonction pour le produit de matrices de taille quelconque, utilisée dans les fonctions Matrice_Rotations
+    -- Il ne semblait pas ici nécessaire d'implémenter un algorithme plus performant que l'algorithme naïf
+    -- la fonction étant destinée à des matrices de taille 3 dans ce projet.
     function Produit_Matrice(X : Matrice ; Y : Matrice) return Matrice is 
-        Z : Matrice(1..3, 1..3);
+        Z : Matrice(X'Range(1), Y'Range(2));
+        Tailles_non_compatibles: Exception;
     begin
-        for i in 1..3 loop
-            for j in 1..3 loop
+        if X'Length(2) /= Y'Length(1) then
+            raise Tailles_non_compatibles;
+        end if;
+
+        for i in Z'Range(1) loop
+            for j in Z'Range(2) loop
                 Z(i,j) := 0.0;
-                for k in 1..3 loop
+                for k in X'Range(2) loop
                     Z(i,j) := Z(i,j) + X(i,k) * Y(k,j);  	
                 end loop;
             end loop;
         end loop;
-
         return Z;
     end;
 

@@ -22,6 +22,10 @@ package body Scene is
     begin
         T := Matrice_Rotations ((1 => -Rho, 2 => -Theta, 3 => -Phi));
         U := Matrice_Rotations_Inverses ((1 => Rho, 2 => Theta, 3 => Phi));
+    
+    exception
+        when Tailles_non_compatibles =>
+            Put_Line("Ces matrices ne peuvent pas être multipliées entre elles")
     end Modification_Matrice_Rotation;
 
     function Position_Camera return Vecteur is
