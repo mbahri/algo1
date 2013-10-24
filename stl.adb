@@ -72,7 +72,6 @@ package body STL is
 
         -- On saute la première ligne qui pourrait contenir un v
         Skip_Line(F); 
-        Get(F, C);
 
         -- Méthode : on cherche les v, une fois atteint on se place sur le prochain espace
         -- On lit ensuite les 3 prochains flottants
@@ -110,21 +109,21 @@ package body STL is
 
         Close (F);
         -- Différents tests d'affichage
-        for I in 1..Nb_Facettes loop
-            Put("Facette"); New_Line;
-            for J in 1..3 loop
-                Put(M(I).P1(J));
-            end loop;
-            New_Line;
-            for J in 1..3 loop
-                Put(M(I).P2(J));
-            end loop;
-            New_Line;
-            for J in 1..3 loop
-                Put(M(I).P3(J));
-            end loop;
-            New_Line; Put("Fin_Facette"); New_Line;
-        end loop;
+--        for I in 1..Nb_Facettes loop
+--            Put("Facette"); New_Line;
+--            for J in 1..3 loop
+--                Put(M(I).P1(J));
+--            end loop;
+--            New_Line;
+--            for J in 1..3 loop
+--                Put(M(I).P2(J));
+--            end loop;
+--            New_Line;
+--            for J in 1..3 loop
+--                Put(M(I).P3(J));
+--            end loop;
+--            New_Line; Put("Fin_Facette"); New_Line;
+--        end loop;
         return M;
     end;
 
