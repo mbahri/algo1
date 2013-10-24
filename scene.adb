@@ -37,9 +37,9 @@ package body Scene is
     begin
         Modification_Matrice_Rotation;
         -- a faire enfin à vérifier en tout cas
-        P1 := Projection(M(Index_Facette).P1, Position_Camera, E, T);
-        P2 := Projection(M(Index_Facette).P2, Position_Camera, E, T);
-        P3 := Projection(M(Index_Facette).P3, Position_Camera, E, T);
+        P1 := Projection(M(Index_Facette).P1, Position_Camera, E, U);
+        P2 := Projection(M(Index_Facette).P2, Position_Camera, E, U);
+        P3 := Projection(M(Index_Facette).P3, Position_Camera, E, U);
     end;
 
     procedure Ajout_Maillage(M1 : Maillage) is
