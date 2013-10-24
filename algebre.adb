@@ -97,7 +97,7 @@ package body Algebre is
         D := T*P;
       --  if D(3) >= 0.0 then
             Resultat(1) := (E(3)/D(3))*D(1)-E(1);
-            Resultat(2) := (E(3)/D(3))*D(2)-D(2);
+            Resultat(2) := (E(3)/D(3))*D(2)-E(2);
       --  end if;
         return Resultat;
     end;

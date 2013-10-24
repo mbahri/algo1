@@ -21,7 +21,7 @@ package body Scene is
     procedure Modification_Matrice_Rotation is
     begin
         T := Matrice_Rotations ((1 => -Rho, 2 => -Theta, 3 => -Phi));
-        U := Matrice_Rotations_Inverses ((1 => -Rho, 2 => -Theta, 3 => -Phi));
+        U := Matrice_Rotations_Inverses ((1 => Rho, 2 => Theta, 3 => Phi));
     end Modification_Matrice_Rotation;
 
     function Position_Camera return Vecteur is
