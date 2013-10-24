@@ -20,7 +20,7 @@ package body STL is
     function Nombre_Facettes(Nom_Fichier : String) return Natural is
         F : File_Type;
         Nb : Natural := 0;
-        Line_epuree : U.Unbounded_String := U.Null_Unbounded_String;
+        Ligne_sans_espaces : U.Unbounded_String := U.Null_Unbounded_String;
     begin
         Open(File => F, Mode => In_File, Name => Nom_Fichier);
         -- Fonctionnement du comptage : on compte les endfacet
@@ -33,19 +33,19 @@ package body STL is
 
         while not End_of_File(F) loop
             declare
-                Line : String := Get_Line(F);
+                Ligne : String := Get_Line(F);
                 cpt : Natural := 1;
             begin
-                Line_epuree := U.Null_Unbounded_String;
+                Ligne_sans_espaces := U.Null_Unbounded_String;
 
-                for i in Line'Range loop
-                     if Line(i) /= ' ' then
-                         U.Append(Source => Line_epuree, New_Item => Line(i));
+                for i in Ligne'Range loop
+                     if Ligne(i) /= ' ' then
+                         U.Append(Source => Ligne_sans_espaces, New_Item => Ligne(i));
                          cpt := cpt + 1;
                      end if;
                 end loop;
 
-                if U.To_String(Line_epuree) = "endfacet" then
+                if U.To_String(Ligne_sans_espaces) = "endfacet" then
                     Nb := Nb + 1;
                 end if;
             end;

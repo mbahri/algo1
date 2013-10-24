@@ -1,5 +1,10 @@
-frame.adb:		-- a faire : calcul des projections, affichage des triangles
-scene.adb:		-- a faire
-scene.adb:		-- a faire
-scene.adb:		-- a faire
-stl.adb:		-- a faire...
+Commentaires à enlever pour débug
+Commentaires explicatifs à rajouter
+
+REQUIERT - GARANTIT !
+Essayer de trouver des invariants de boucle
+
+Problèmes de perspective avec le cube
+Tenter de mieux gérer les dépassements d'écran
+
+Rapport à faire
