@@ -35,7 +35,6 @@ package body Scene is
 
     procedure Projection_Facette(Index_Facette : Positive ; P1, P2, P3 : out Vecteur) is
     begin
-        Modification_Matrice_Rotation;
         -- a faire enfin à vérifier en tout cas
         P1 := Projection(M(Index_Facette).P1, Position_Camera, E, U);
         P2 := Projection(M(Index_Facette).P2, Position_Camera, E, U);
