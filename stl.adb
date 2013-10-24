@@ -72,7 +72,6 @@ package body STL is
 
         -- On saute la première ligne qui pourrait contenir un v
         Skip_Line(F); 
-        Get(F, C);
 
         -- Méthode : on cherche les v, une fois atteint on se place sur le prochain espace
         -- On lit ensuite les 3 prochains flottants
