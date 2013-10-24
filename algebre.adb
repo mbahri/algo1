@@ -21,7 +21,7 @@ package body Algebre is
         return Z;
     end;
 
-    -- Possibilité de faire un sous type Axe pour ne pas avoir a passer une caractere à chaque fois
+    -- Possibilité de faire un sous type Axe pour ne pas avoir à passer un caractère à chaque fois
     function Matrice_Rotation(Axe : Character ; Angle : Float) return Matrice is
         Rotation : Matrice (1..3,1..3);
     begin
