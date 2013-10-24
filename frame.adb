@@ -21,47 +21,52 @@ package body Frame is
             
         if (X1 <= SCRW) and then (Y1 <= SCRH) and then (X2 <= SCRW) and then (Y2 <= SCRH)  then
             Tracer_Segment(X1,Y1,X2,Y2);
-    --    else
-    --        a := Float(Y2-Y1)/Float(X2-X1);
-    --        b := Float(Y1) - a*Float(X1);
+       -- else
+           -- if not (Y2 = Y1) and then (not (X2 = X1)) then
+           --     a := Float(Y2-Y1)/Float(X2-X1);
+           -- else
+           --     a := 1.0;
+           -- end if;
 
-    --        Xp1 := Integer((1.0 - b)/a);
-    --        Xp2 := Integer((Float(SCRH) - b)/a);
-    --        Yp1 := Integer(a+b);
-    --        Yp2 := Integer(a*Float(SCRW) + b);
+           -- b := Float(Y1) - a*Float(X1);
 
-    --        -- Intersections avec chaque bord de l'écran
-    --        if (X1 in 1..SCRW) and (Y1 in 1..SCRH) then
-    --            --Xf1 := Float(X1); Yf1 := Float(Y1);
+           -- if a /= 0.0 then
+           --     Xp1 := Integer((1.0 - b)/a);
+           --     Xp2 := Integer((Float(SCRH) - b)/a);
+           -- else
+           --     Xp1 := X1; Xp2 := X2;
+           -- end if;
 
-    --            if Xp1 in 1..SCRW then
-    --                X2 := Xp1;
-    --            else
-    --                X2 := Xp2;
-    --            end if;
-    --                
-    --            if Yp1 in 1..SCRH then
-    --                Y2 := Yp1;
-    --            else
-    --                Y2 := Yp2;
-    --            end if;
-    --        end if;
-    --        if (X2 in 1..SCRW) and (Y2 in 1..SCRH) then
-    --            --Xf2 := Float(X2); Yf2 := Float(Y2);
+           -- Yp1 := Integer(a+b);
+           -- Yp2 := Integer(a*Float(SCRW) + b);
 
-    --            if Xp1 in 1..SCRW then
-    --                X1 := Xp1;
-    --            else
-    --                X1 := Xp2;
-    --            end if;
-    --                
-    --            if Yp1 in 1..SCRH then
-    --                Y1 := Yp1;
-    --            else
-    --                Y1 := Yp2;
-    --            end if;
-    --        end if;
+           -- if X1 <= SCRW and then Y1 <= SCRH then
+           --     if Xp1 in 1..SCRW then
+           --         X2 := Xp1;
+           --     else
+           --         X2 := Xp2;
+           --     end if;
 
+           --     if Yp1 in 1..SCRW then
+           --         Y2 := Yp1;
+           --     else
+           --         Y2 := Yp2;
+           --     end if;
+           -- end if; 
+
+           -- if X2 <= SCRW and then Y2 <= SCRH then
+           --     if Xp1 in 1..SCRW then
+           --         X1 := Xp1;
+           --     else
+           --         X1 := Xp2;
+           --     end if;
+
+           --     if Yp1 in 1..SCRW then
+           --         Y1 := Yp1;
+           --     else
+           --         Y1 := Yp2;
+           --     end if;
+           -- end if; 
         end if;
     end;
 
