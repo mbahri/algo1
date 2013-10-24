@@ -11,13 +11,11 @@ project viewer is
    end Ide;
 
    package Builder is
-      -- for Default_Switches ("ada") use ("-j2", "-k", "-g", "-s");
-      for Default_Switches ("ada") use ("-j2", "-k", "-O3", "-s");
+      for Default_Switches ("ada") use ("-j2", "-k", "-g", "-s");
    end Builder;
 
    package Compiler is
-      -- for Default_Switches ("ada") use ("-gnato", "-fstack-check", "-g", "-gnat95");
-      for Default_Switches ("ada") use ("-gnato", "-fstack-check", "-O3", "-gnat95");
+      for Default_Switches ("ada") use ("-gnato", "-fstack-check", "-g", "-gnat95");
    end Compiler;
 
    type Devel_Environment_Type is ("penWin32","general");
