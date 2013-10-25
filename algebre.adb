@@ -4,7 +4,10 @@ with Ada.Text_IO;
 use Ada.Text_IO;
 package body Algebre is
 
-    -- Fonction pour le produit de matrices de taille quelconque, utilisée dans les fonctions Matrice_Rotations
+    -- Produit_Matrice (non mis dans l'ADS car utilisé seulement en local)
+    -- Recquiet : deux matrices de tailles quelconques
+    -- Garantit : la produit de ces deux matrices    
+    -- Raise l'exception Tailles_non_compatibles si on essaie de multiplier des matrices qui ne peuvent pas l'être
     -- Il ne semblait pas ici nécessaire d'implémenter un algorithme plus performant que l'algorithme naïf
     -- la fonction étant destinée à des matrices de taille 3 dans ce projet.
     function Produit_Matrice(X : Matrice ; Y : Matrice) return Matrice is 
@@ -26,7 +29,10 @@ package body Algebre is
         return Z;
     end;
 
-    -- Possibilité de faire un sous type Axe pour ne pas avoir à passer un caractère à chaque fois
+    -- Matrice_Rotation (non mis dans l'ADS car utilisé seulement en local)
+    -- Recquiert : une lettre x, y ou z pour indiqué l'axe autour duquel se fait la rotation
+    --              et un Float pour la valeur de l'angle de la rotation
+    -- Garanti : la matrice de la rotation de 'Angle' degrés autour de l'axe 'Axe'
     function Matrice_Rotation(Axe : Character ; Angle : Float) return Matrice is
         Rotation : Matrice (1..3,1..3);
     begin
@@ -97,9 +103,9 @@ package body Algebre is
         D : Vecteur(1..3);
         P : Vecteur(1..3);
     begin
-        -- QUE FAIRE SI D(3) < 0 pour ne pas afficher les points ????
         P := A - C;
         D := T*P;
+       -- on ne veut pas afficher les points qui sont ferrière la caméra 
        if D(3) >= 0.0 then
             Resultat(1) := (E(3)/D(3))*D(1)-E(1);
             Resultat(2) := (E(3)/D(3))*D(2)-E(2);
