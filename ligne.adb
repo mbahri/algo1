@@ -203,9 +203,5 @@ package body Ligne is
             end if;
         end if;
         -- le pixel final (x2, y2) n’est pas tracé.
-  --  exception
-  --      -- on ne trace pas le trait si un point est hors de l'écran
-  --          when CONSTRAINT_ERROR =>
-  --          null;
     end;
 end;

@@ -21,8 +21,12 @@ package body Dessin is
     end Fixe_Pixel;
 
     procedure Trace_Pixel(X : Integer ; Y : Integer) is
-        -- Type changé en Integer
-        -- Ajout d'un test d'appartenance des points à la zone affichable
+        --Modifications apportées :
+        --  * Changement du type des paramètres en Integer
+        --  * Ajout d'un test d'appartenance des points à la zone affichable
+        --  But : Ne pas tracer les morceaux de segments qui sont hors de la zone affichable
+        --  Problème : La pénalité de performances est très grande lorsque la caméra est dans l'objet
+        --  Une solution basée sur la résolution des collisions entre chaque segment à afficher et le cadre de l'écran semble plus indiquée.
     begin
         if X in 1..SCRW and then Y in 1..SCRH then
             Fixe_Pixel(Pixel_X(X), Pixel_Y(Y), 255);
