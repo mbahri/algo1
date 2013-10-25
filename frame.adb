@@ -12,6 +12,7 @@ package body Frame is
         a, b, c : Float := 0.0;
         X1, X2, Y1, Y2 : Integer := 0;
         Xp1, Xp2, Yp1, Yp2 : Integer := -1;
+        P1, P2 : Position;
     begin
         if (Xf1 >= 1.0) and then (Xf2 >= 1.0) and then (Yf1 >= 1.0) and then (Yf2 >= 1.0) then
             X1 := Natural(Xf1);
@@ -27,37 +28,37 @@ package body Frame is
             b := Float(X1 - X2);
             c := -(b*Float(Y1) + a*Float(X1));
 
-            if X1 <= 100 then
-                Put_Line("Enfin ! X1");
-                X1 := 100;
-                Y1 := Integer(-(c + a*100.0)/b);
+            if X1 < 1 then
+           --     Put_Line("Enfin ! X1");
+                X1 := 1;
+                Y1 := Integer(-(c + a*1.0)/b);
             elsif X1 > SCRW then
                 X1 := SCRW;
                 Y1 := Integer(-(c + a*Float(SCRW))/b);
             end if;
 
-            if X2 <= 100 then
-                Put_Line("Enfin ! X2");
-                X2 := 100;
-                Y2 := Integer(-(c + a*100.0)/b);
+            if X2 < 1 then
+            --    Put_Line("Enfin ! X2");
+                X2 := 1;
+                Y2 := Integer(-(c + a*1.0)/b);
             elsif X2 > SCRW then
                 X2 := SCRW;
                 Y2 := Integer(-(c + a*Float(SCRW))/b);
             end if;
 
-            if Y1 <= 100 then
-                Put_Line("Enfin ! Y1");
-                Y1 := 100;
-                X1 := Integer(-(c+b*100.0)/a);
+            if Y1 < 1 then
+            --    Put_Line("Enfin ! Y1");
+                Y1 := 1;
+                X1 := Integer(-(c+b*1.0)/a);
             elsif Y1 > SCRH then
                 Y1 := SCRH;
                 X1 := Integer(-(c+b*Float(SCRH))/a);
             end if;
 
-            if Y2 <= 100 then
-                Put_Line("Enfin ! Y2");
-                Y2 := 100;
-                X2 := Integer(-(c+b*100.0)/a);
+            if Y2 < 1 then
+            --    Put_Line("Enfin ! Y2");
+                Y2 := 1;
+                X2 := Integer(-(c+b*1.0)/a);
             elsif Y2 > SCRH then
                 Y2 := SCRH;
                 X2 := Integer(-(c+b*Float(SCRH))/a);
@@ -72,11 +73,11 @@ package body Frame is
        --             Y1 := Integer(-(c + a*Float(SCRW))/b);
        --             X2 := SCRW;
        --             Y2 := Integer(-(c + a*Float(SCRW))/b);
-       --         elsif X1 <= 100 then
-       --             X1 := 100;
-       --             Y1 := Integer(-(c + a*100.0)/b);
-       --             X2 := 100;
-       --             Y2 := Integer(-(c + a*100.0)/b);
+       --         elsif X1 <= 1 then
+       --             X1 := 1;
+       --             Y1 := Integer(-(c + a*1.0)/b);
+       --             X2 := 1;
+       --             Y2 := Integer(-(c + a*1.0)/b);
        --         end if;
        --     end if;
 
@@ -86,11 +87,11 @@ package body Frame is
        --             X1 := Integer(-(c+b*Float(SCRH))/a);
        --             Y2 := SCRH;
        --             X2 := Integer(-(c+b*Float(SCRH))/a);
-       --         elsif Y1 <= 100 then
-       --             Y1 := 100;
-       --             X1 := Integer(-(c+b*100.0)/a);
-       --             Y2 := 100;
-       --             X2 := Integer(-(c+b*100.0)/a);
+       --         elsif Y1 <= 1 then
+       --             Y1 := 1;
+       --             X1 := Integer(-(c+b*1.0)/a);
+       --             Y2 := 1;
+       --             X2 := Integer(-(c+b*1.0)/a);
        --         end if;
        --     end if;
        --     Tracer_Segment(X1,Y1,X2,Y2);    
