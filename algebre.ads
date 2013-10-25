@@ -9,15 +9,6 @@ package Algebre is
     -- pour plus de details, voir la documentation fournie ou
     -- see http://en.wikipedia.org/wiki/3D_projection#Perspective_projection
 
-    -- Raise l'exception Tailles_non_compatibles si on essaie de multiplier des matrices qui ne peuvent pas l'être
-    function Produit_Matrice(X : Matrice ; Y : Matrice) return Matrice; 
-
-    -- Matrice_Rotation
-    -- Recquiert : une lettre x, y ou z pour indiqué l'axe autour duquel se fait la rotation
-    --              et un Float pour la valeur de l'angle de la rotation
-    -- Garanti : la matrice de la rotation de 'Angle' degrés autour de l'axe 'Axe'
-    function Matrice_Rotation(Axe : Character ; Angle : Float) return Matrice;
-
     -- la fonction Matrice_Rotations renvoie la matrice realisant
     -- les 3 rotations suivantes (dans l'ordre) :
     -- une rotation d'Angles(1) autour de l'axe X

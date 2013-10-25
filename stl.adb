@@ -71,19 +71,17 @@ package body STL is
         -- et remplir le maillage
         Open(File => F, Mode => In_File, Name => Nom_Fichier);
 
-        -- On saute la première ligne qui pourrait contenir un v
+        -- On saute la première ligne qui pourrait contenir un 'vertex' dans le titre et ainsi entrainer la capture de flotants inexistants
         Skip_Line(F); 
 
-        -- Méthode : on cherche les v, une fois atteint on se place sur le prochain espace
-        -- On lit ensuite les 3 prochains flottants
+        -- Méthode : on cherche les v, une fois atteint on compare les 5 caractères suivant avec 'ertex' pour être sûr d'être sur un 'vertex'
+        -- Si c'est bien le cas, on lit ensuite les 3 prochains flottants
         --
         -- On affecte ensuite les 3 flottants au bon vecteur de la facette à l'aide de "Point" qui
         -- prend circulairement des valeurs entre 0 et 2.
         --
         -- iFace est l'indice de la facette en cours de traitement dans le maillage. On l'incrémente
         -- chaque fois qu'on finit de remplir le 3eme vecteur d'une facette.
-        --
-        -- À faire : vérifier que le v lu correspond bien à "vertex"
         while not End_of_File(F) loop
             Get(F, C);
             if C = 'v' then
