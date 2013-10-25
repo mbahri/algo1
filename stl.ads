@@ -15,5 +15,7 @@ package STL is
 
     -- charge un fichier STL au format ASCII
     function Chargement_ASCII(Nom_Fichier : String) return Maillage;
+        -- REQUIERT : Nom de fichier STL, fichier au format ASCII
+        -- GARANTIT : L'ensemble des facettes du fichier est correctement chargée dans le maillage
 
 end;

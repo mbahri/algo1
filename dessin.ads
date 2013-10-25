@@ -15,5 +15,6 @@ package Dessin is
     procedure Fixe_Pixel(X : Pixel_X ; Y : Pixel_Y ; Valeur : Uint8); -- met la valeur du pixel X Y a Valeur
     procedure Trace_Pixel(X : Integer ; Y : Integer); -- met la valeur du pixel en position X Y a 255
     -- Type des paramètres changé en Integer
+    -- Teste au fur et à mesure du tracé si le pixel à afficher n'est pas hors de l'écran
 
 end;
