@@ -1,0 +1,177 @@
+\documentclass[10pt]{article}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+% ajoutés suite à des avertissement lors de la compilation
+\usepackage[T1]{fontenc} 
+\usepackage{textcomp}
+
+%%%%%%
+% Pour mise-en-forme des fichiers Ada
+%
+% voir exemple en fin de ce fichier.
+%
+% ATTENTION, requiert encoding utf-8 (voir 2ième "\lstset" ci-dessous)
+ 
+\usepackage{listings}
+\lstset{
+  morekeywords={abort,abs,accept,access,all,and,array,at,begin,body,
+      case,constant,declare,delay,delta,digits,do,else,elsif,end,entry,
+      exception,exit,for,function,generic,goto,if,in,is,limited,loop,
+      mod,new,not,null,of,or,others,out,package,pragma,private,
+      procedure,raise,range,record,rem,renames,return,reverse,select,
+      separate,subtype,task,terminate,then,type,use,when,while,with,
+      xor,abstract,aliased,protected,requeue,tagged,until},
+  sensitive=f,
+  morecomment=[l]--,
+  morestring=[d]",
+  showstringspaces=false,
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bf\small,
+  commentstyle=\itshape,
+  stringstyle=\sf,
+  extendedchars=true,
+  columns=[c]fixed
+}
+
+% CI-DESSOUS: conversion des caractères accentués UTF-8 
+% en caractères TeX dans les listings...
+\lstset{
+  literate=%
+  {À}{{\`A}}1 {Â}{{\^A}}1 {Ç}{{\c{C}}}1%
+  {à}{{\`a}}1 {â}{{\^a}}1 {ç}{{\c{c}}}1%
+  {É}{{\'E}}1 {È}{{\`E}}1 {Ê}{{\^E}}1 {Ë}{{\"E}}1% 
+  {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1%
+  {Ï}{{\"I}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1%
+  {ï}{{\"i}}1 {î}{{\^i}}1 {ô}{{\^o}}1%
+  {Ù}{{\`U}}1 {Û}{{\^U}}1 {Ü}{{\"U}}1%
+  {ù}{{\`u}}1 {û}{{\^u}}1 {ü}{{\"u}}1%
+}
+
+%%%%%%%%%%
+% TAILLE DES PAGES (A4 serré)
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex}
+\setlength{\textwidth}{17cm}
+\setlength{\textheight}{24cm}
+\setlength{\oddsidemargin}{-.7cm}
+\setlength{\evensidemargin}{-.7cm}
+\setlength{\topmargin}{-.5in}
+
+%%%%%%%%%%
+% EN-TÊTES ET PIED DE PAGES
+
+\pagestyle{fancyplain}
+\renewcommand{\headrulewidth}{0pt}
+\addtolength{\headheight}{1.6pt}
+\addtolength{\headheight}{2.6pt}
+\lfoot{}
+\cfoot{}
+\rfoot{\footnotesize\sf page~\thepage/\pageref{LastPage}}
+\lhead{\footnotesize\sf Algo 1 : Projet 1}
+\rhead{\footnotesize\sf Equipe n° 9} % numéro d'équipe Teide 
+
+%%%%%%%%%%
+% TITRE DU DOCUMENT
+
+\title{Compte Rendu du Projet 1, Algo 1\\
+``{\em Visualiseur 3D }'' }
+
+\author{Equipe n° 9, Mehdi BAHRI et Jérôme LAPOSTOLET, Groupe 4} 
+%% penser à indiquer: numéro d'équipe Teide + noms + groupe TD
+
+\date{25 Octobre 2013}
+
+
+%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+Nous avons réussi à réaliser, comme demandé, un visualiseur opérationnel qui fonctionne sur un fichier STL au format ASCII respectant les spécifications.
+
+\section{Implémentation}
+
+\subsection{Implémentation du paquetage \lstinline!Algebre!}
+
+Nous avons implémenté les fonctions décrites dans le sujet en passant, lorsque cela nous semblait nécessaire, par des fonctions intermédiaires.\\
+Ainsi nous avons réalisé une fonction \lstinline!Produit_Matrice! pour des matrices de tailles quelconques afin qu'il puisse être utilisé à toute échelle. Cependant sa complexité en temps n'est pas optimisée. Cela ne nous a pas semblé une priorité puisqu'ici il est utilisé sur des matrices de taille ``3,3''.\\
+Nous avons également réalisé une surcharge de l'opérateur ``-'' pour les vecteurs ainsi qu'une fonction générant la matrice d'une rotation en dimension 3 à partir d'un caractère représentant l'axe autour duquel se fait ladite rotation et de l'angle de cette dernière.
+
+\subsection{Implémentation du paquetage \lstinline!Scene!}
+
+Nous avons suivi les descriptions des fonctionnalités telles que décrites dans le sujet. Le seul ajout pouvant être considéré comme une initiative de notre part est l'ajout d'une matrice \lstinline!Matrice_Rotations_Inverses! dans la procédure \lstinline!Modification_Matrice_Rotation! afin de pouvoir ensuite l'utiliser lors des projections.
+
+\subsection{Implémentation du paquetage \lstinline!STL!}
+
+Pour la fonction \lstinline!Nombre_Facettes! nous avons choisi de compter le nombre de \lstinline!endfacet! du fichier STL. Pour cela nous récupérons les lignes une par une et pour chacune nous ne conservons que les caractères de 'a' à 'z'. Pour cela nous utilisons des chaînes de longueur non définit grâce au paquetage \lstinline!Ada.Strings.Unbounded!. Ce choix permet de ne réserver que la mémoire nécessaire et ce, sans ajouter de compteur ou de test. Nous comparons ensuite la chaîne obtenue avec \lstinline!endfacet!.\\
+La fonction \lstinline!Chargement_ASCII! est celle qui semble laisser le plus de choix quant à la méthode utilisée pour la traiter. Nous avons d'ailleurs perdu un certains temps en hésitant sur la méthode à choisir.\\
+Finalement nous avons finalement choisi de traiter directement le fichier dans son ensemble et non de prendre les lignes une par une.\\ 
+Tout d'abord nous recherchons un "v". Ensuite nous comparons la chaîne suivant ce caractère a \lstinline!ertex!. Si le test est positif, nous sommes assurés d'être sur un \lstinline!vertex! et nous récupérons alors 3 flottants que nous enregistrons dans la facette. La récupération des flottants est faite avec un \lstinline!Get(Fichier, variable)! qui permet de récupérer l'élément voulu directement dans le fichier et est présent dans les bibliothèques d'Ada..
+La variable \lstinline!Point! gérée avec un modulo 3 nous permet de répéter trois fois cette opération en changeant le point de la facette dans lequel on enregistre les flottants.
+
+\subsection{Implémentation du paquetage \lstinline!Frame!}
+
+Dans ce paquetage, nous avons rajouter une boucle qui permet de nettoyer l'écran de l'affichage précédent et ainsi ne pas obtenir une superposition des différents vues de l'objet.
+Ensuite nous avons implémenter les fonctions décrites de projection de la facette dans le plan de visualisation et de tracer des triangles correspondants à ces facettes.
+
+\subsection{Modification des paquetages \lstinline!Dessin! et \lstinline!Ligne!}
+
+Dans le paquetage \lstinline!Dessin!, nous avons modifier le type des coordonnées de \lstinline!Natural! à \lstinline!Integer! afin de pouvoir gérer assez simplement le dépassement d'écran. En effet nous testons ensuite l'appartenance de la coordonnée (éventuellement négative donc) à la zone d'affichage pour décider si l'on doit tracer le segment entier ou seulement une partie de celui-ci. Cependant les tests induits par cette modification ralentissent significativement l'affichage dans certaines situations. Le rendu s'en trouve toutefois bien amélioré, l'affichage étant plus complet.\\
+De plus nous avons dû effectuer le même changement de \lstinline!Natural! en \lstinline!Integer! dans le paquetage \lstinline!Ligne! qui appelle les procédures de \lstinline!Dessin!.
+
+\section{Validation}
+
+\subsection{Test du paquetage \lstinline!Algebre!}
+
+Nous avons testé les différentes fonctions au fur et à mesure de leur implémentation. Par exemple nous avons testé les différents opérateurs en les appliquant à des matrices ou vecteurs quelconques et en vérifiant les résultats à l'aide de calculs manuels ou d'outils informatiques.
+Quant aux matrices de rotations nous avons également vérifié leur forme en les testant pour différents angles.\\
+Seule la fonction \lstinline!Projection! semblait difficile à réellement tester indépendamment et nous avons donc attendu de pouvoir afficher le visualiseur pour voir si elle fournissait des résultats cohérents.
+
+\subsection{Test du paquetage \lstinline!STL!}
+
+Nous avons simplement testé les deux fonctions du paquetage sur les deux fichiers STL fournis dans le projet. Pour \lstinline!Nombre_Facettes! nous avons vérifié les résultats fournis en effectuant un \lstinline!grep -c! de \lstinline!endfacet! sur les fichiers. Pour \lstinline!Chargement_ASCII!, nous avons fait afficher les facettes récupérées et nous en avons comparé quelques unes choisies aléatoirement avec le fichier STL fournit.\\
+Pour plus de sécurité nous avons d'abord implémenté ces fonctions dans un parseur indépendant avant de les incorporer au paquetage.
+
+Les paquetages \lstinline!Scene! et \lstinline!Frame! ne nous semblaient pas testables indépendamment, nous avons donc attendu d'avoir un affichage pour pouvoir les déboguer.
+
+\subsection{Test du programme \lstinline!Visualiseur!}
+
+Nous avons testé le programme sur les deux fichiers STL fournis dans le projet. Ceci nous a permis dans un premier temps de déboguer notre code afin d'avoir effectivement les fonctionnalités recquises par le sujet. Ensuite nous avons essayé d'améliorer la gestion de certains cas comme lorsque l'objet dépasse de l'écran (voir Modification des paquetages \lstinline!Dessin! et \lstinline!Ligne!) afin d'obtenir un affichage le plus détaillé et cohérent possible, et ce quelle que soit la position de la caméra.
+
+Cependant, par manque de temps, nous n'avons pu améliorer la gestion de quelques situations qui font apparaître des segments non voulus. Nous n'avons pas pu non plus limiter la perte de performance due aux nombreux tests rajoutés dans la gestion de ces dépassements d'écran en implémentant par exemple une gestion plus générale.
+
+%%%%%%%%%%%%%%
+% Pour voir un exemple de code Ada inclus en Latex, 
+% commenter la ligne ci-dessous par un '%' en début de ligne
+\end{document}
+
+%% SUITE DU DOCUMENT non incluse originellement...
+
+\section{Remarque sur l'inclusion de code dans le CR}
+
+Voilà ci-dessous le corps de \lstinline!AvNombre! que nous avons
+décidé de ne pas inclure dans notre CR car ça n'apporte rien. Une
+telle inclusion n'est utile que si on veut commenter des bouts de code
+vraiment subtils qu'on veut bien mettre en valeur dans le CR. Donc,
+c'est à n'employer qu'avec parcimonie, et que sur des bouts de codes
+de quelques lignes.
+\begin{lstlisting}
+   begin
+      -- lecture du nombre binaire courant
+      LeNombre:=ChiffreVersNombre(CarCour);
+      AvCar ;
+      while (not FinCar) and then EstChiffre(CarCour) loop
+         LeNombre:=LeNombre*2 + ChiffreVersNombre(CarCour) ;
+         AvCar ;
+      end loop ;
+      -- on est à la fin du fichier ou sur un séparateur.
+      IgnoreSeparateurs ;
+   end ;
+\end{lstlisting}
+
+\end{document}
