@@ -4,13 +4,13 @@ use Dessin;
 package body Ligne is
     --code entierement repris de wikipedia
     --https://fr.wikipedia.org/wiki/Algorithme_de_trac%C3%A9_de_segment_de_Bresenham#Algorithme_g.C3.A9n.C3.A9ral_optimis.C3.A9
-    procedure Tracer_Segment(xa, ya, xb, yb : Natural) is
+    procedure Tracer_Segment(xa, ya, xb, yb : Integer) is
         dx, dy : Integer;
         e : Integer;
-        x1 : Natural := xa;
-        y1 : Natural := ya;
-        x2 : Natural := xb;
-        y2 : Natural := yb;
+        x1 : Integer := xa;
+        y1 : Integer := ya;
+        x2 : Integer := xb;
+        y2 : Integer := yb;
     begin
         dx := x2 - x1;
         if dx /= 0 then
