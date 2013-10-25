@@ -21,6 +21,8 @@ package body Dessin is
     end Fixe_Pixel;
 
     procedure Trace_Pixel(X : Integer ; Y : Integer) is
+        -- Type changé en Integer
+        -- Ajout d'un test d'appartenance des points à la zone affichable
     begin
         if X in 1..SCRW and then Y in 1..SCRH then
             Fixe_Pixel(Pixel_X(X), Pixel_Y(Y), 255);

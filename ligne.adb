@@ -5,6 +5,11 @@ package body Ligne is
     --code entierement repris de wikipedia
     --https://fr.wikipedia.org/wiki/Algorithme_de_trac%C3%A9_de_segment_de_Bresenham#Algorithme_g.C3.A9n.C3.A9ral_optimis.C3.A9
     procedure Tracer_Segment(xa, ya, xb, yb : Integer) is
+        -- REQUIERT : Quatre coordonnées entières
+        -- GARANTIT : Trace le segment dans la zone affichable uniquement
+        --
+        -- Modifications apportées : Passage du type de la procédure et des coordonnées en Integer.
+        -- Cela évite le calcul des points de collision segment/écran.
         dx, dy : Integer;
         e : Integer;
         x1 : Integer := xa;
