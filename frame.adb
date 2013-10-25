@@ -12,7 +12,6 @@ package body Frame is
         a, b, c : Float := 0.0;
         X1, X2, Y1, Y2 : Integer := 0;
         Xp1, Xp2, Yp1, Yp2 : Integer := -1;
-        P1, P2 : Position;
     begin
         if (Xf1 >= 1.0) and then (Xf2 >= 1.0) and then (Yf1 >= 1.0) and then (Yf2 >= 1.0) then
             X1 := Natural(Xf1);

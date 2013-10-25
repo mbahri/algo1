@@ -20,9 +20,11 @@ package body Dessin is
         Uint8_Ptrs.Object_Pointer(Pointy).all := Valeur;
     end Fixe_Pixel;
 
-    procedure Trace_Pixel(X : Pixel_X ; Y : Pixel_Y) is
+    procedure Trace_Pixel(X : Integer ; Y : Integer) is
     begin
-        Fixe_Pixel(X, Y, 255);
+        if X in 1..SCRW and then Y in 1..SCRH then
+            Fixe_Pixel(Pixel_X(X), Pixel_Y(Y), 255);
+        end if;
     end;
 
 end;

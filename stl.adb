@@ -60,6 +60,7 @@ package body STL is
         F : File_Type;
         T : Float;
         C : Character;
+        S : String(1..5);
         Point : Natural := 0;
         iFace : Positive := 1;
     begin
@@ -86,23 +87,23 @@ package body STL is
         while not End_of_File(F) loop
             Get(F, C);
             if C = 'v' then
-                -- v trouvé : on va traiter le point suivant de la facette
-                Point := (Point + 1) mod 3; 
-                while not (C = ' ') loop
-                    Get(F,C);
-                end loop;
-                for I in 1..3 loop
-                    Get(F, T); -- On lit 3 flottants qu'on affecte au bon vecteur grace à Point
-                    case Point is
-                        when 1 => M(iFace).P1(I) := T;
-                        when 2 => M(iFace).P2(I) := T;
-                        when 0 => M(iFace).P3(I) := T; 
-                        when others => null;
-                    end case;
-                end loop;
-                if Point = 0 then
-                    -- On a fini de remplir un vecteur, s'il s'agissait du 3eme d'une facette, on passe à la facette suivante
-                    iFace := iFace + 1;
+                Get(F,S);
+                if S = "ertex" then
+                    -- vertex trouvé : on va traiter le point suivant de la facette
+                    Point := (Point + 1) mod 3; 
+                    for I in 1..3 loop
+                        Get(F, T); -- On lit 3 flottants qu'on affecte au bon vecteur grace à Point
+                        case Point is
+                            when 1 => M(iFace).P1(I) := T;
+                            when 2 => M(iFace).P2(I) := T;
+                            when 0 => M(iFace).P3(I) := T; 
+                            when others => null;
+                        end case;
+                    end loop;
+                    if Point = 0 then
+                        -- On a fini de remplir un vecteur, s'il s'agissait du 3eme d'une facette, on passe à la facette suivante
+                        iFace := iFace + 1;
+                    end if;
                 end if;
             end if;
         end loop;
