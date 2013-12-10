@@ -3,3 +3,5 @@
 *.ali
 *.cswi
 *.bexch
+*.aux
+*.log
